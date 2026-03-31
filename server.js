@@ -11,6 +11,7 @@ import bannerRoutes from "./routes/bannerRoutes.js";
 import addressRoutes from "./routes/Address.routes.js";
 import orderRoutes from "./routes/Order.routes.js";
 import couponRoutes from "./routes/Coupon.routes.js";
+import heroSlideRoutes from "./routes/HeroRoutes.js";
 
 import { 
   adminGetAllOrders,
@@ -44,6 +45,8 @@ app.use("/api/admin/banners", bannerRoutes);
 app.use("/api/addresses", addressRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/coupons", couponRoutes);
+
+app.use("/api/admin", heroSlideRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "✦ Lyra API is running", status: "ok" });
