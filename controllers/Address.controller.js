@@ -155,3 +155,36 @@ export const setDefaultAddress = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+export const adminUpdateOrderStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+    const validStatuses = ["Pending", "Processing", "Shipped", "Delivered", "Cancelled"];
+    if (!validStatuses.includes(status))
+      return res.status(400).json({ error: `Invalid status: ${status}` });
+ 
+    const order = await Order.findById(req.params.id);
+    if (!order) return res.status(404).json({ error: "Order not found" });
+ 
+    order.status = status;
+    order.statusTimeline.push({ status, message: `Status updated to ${status} by admin`, timestamp: new Date() });
+ 
+    // Auto-mark COD as paid on delivery
+    if (status === "Delivered" && order.paymentMethod === "cod") {
+      order.paymentStatus = "paid";
+    }
+    // Auto-mark as refunded on cancel if already paid
+    if (status === "Cancelled" && order.paymentStatus === "paid") {
+      order.paymentStatus = "refunded";
+    }
+ 
+    await order.save();
+    res.json({
+      message: "Order status updated",
+      order: { ...order.toJSON(), orderNumber: "LYR" + order._id.toString().slice(-8).toUpperCase() },
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+ 

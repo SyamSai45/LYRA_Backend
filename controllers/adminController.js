@@ -1,5 +1,5 @@
-import { Order, User } from "../models/admin.js";
 import Product from "../models/product.js";
+import Order from "../models/Order.model.js";
 
 export const saveProduct = async (req, res) => {
   try {
@@ -35,18 +35,6 @@ export const deleteProduct = async (req, res) => {
   res.json({ message: "Deleted" });
 };
 
-
-export const createOrder = async (req, res) => {
-  const data = req.body;
-
-  const order = await Order.create({
-    ...data,
-    orderId: "LYR" + Math.random().toString(36).substring(2, 8).toUpperCase()
-  });
-
-  res.json(order);
-};
-
 export const getOrders = async (req, res) => {
   const orders = await Order.find().sort({ createdAt: -1 });
   res.json(orders);
@@ -61,11 +49,6 @@ export const updateOrder = async (req, res) => {
   res.json(updated);
 };
 
-
-export const getUsers = async (req, res) => {
-  const users = await User.find().sort({ createdAt: -1 });
-  res.json(users);
-};
 
 
 export const getDashboard = async (req, res) => {
@@ -89,7 +72,7 @@ export const getDashboard = async (req, res) => {
 };
 
 
-export const getCustomers = async (req, res) => {
+export const getUsers = async (req, res) => {
   try {
     const users = await User.find();
 
@@ -109,5 +92,116 @@ export const getCustomers = async (req, res) => {
 
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+};
+
+export const getOrdersByUser = async (req, res) => {
+  try {
+    const userId = req.params.userId; 
+    const orders = await Order.find({ user: userId })
+      .sort({ createdAt: -1 });
+
+    res.json(orders);
+
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export const adminGetOrderById = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id)
+      .populate("user", "fullName email mobileNumber");
+
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
+    res.json(order);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+export const adminUpdatePaymentStatus = async (req, res) => {
+  try {
+    const { paymentStatus } = req.body;
+    const validPayment = ["pending", "paid", "failed", "refunded"];
+    if (!validPayment.includes(paymentStatus))
+      return res.status(400).json({ error: `Invalid paymentStatus: ${paymentStatus}` });
+ 
+    const order = await Order.findById(req.params.id);
+    if (!order) return res.status(404).json({ error: "Order not found" });
+ 
+    order.paymentStatus = paymentStatus;
+    order.statusTimeline.push({
+      status:    order.status,
+      message:   `Payment status updated to ${paymentStatus} by admin`,
+      timestamp: new Date(),
+    });
+ 
+    await order.save();
+    res.json({
+      message: "Payment status updated",
+      order: { ...order.toJSON(), orderNumber: "LYR" + order._id.toString().slice(-8).toUpperCase() },
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+ 
+export const adminUpdateOrderStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+    const validStatuses = ["Pending", "Processing", "Shipped", "Delivered", "Cancelled"];
+    if (!validStatuses.includes(status))
+      return res.status(400).json({ error: `Invalid status: ${status}` });
+ 
+    const order = await Order.findById(req.params.id);
+    if (!order) return res.status(404).json({ error: "Order not found" });
+ 
+    order.status = status;
+    order.statusTimeline.push({ status, message: `Status updated to ${status} by admin`, timestamp: new Date() });
+ 
+    // Auto-mark COD as paid on delivery
+    if (status === "Delivered" && order.paymentMethod === "cod") {
+      order.paymentStatus = "paid";
+    }
+    // Auto-mark as refunded on cancel if already paid
+    if (status === "Cancelled" && order.paymentStatus === "paid") {
+      order.paymentStatus = "refunded";
+    }
+ 
+    await order.save();
+    res.json({
+      message: "Order status updated",
+      order: { ...order.toJSON(), orderNumber: "LYR" + order._id.toString().slice(-8).toUpperCase() },
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+ 
+export const adminGetAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find()
+      .populate("user", "fullName email mobileNumber createdAt")
+      .sort({ createdAt: -1 })
+      .lean();
+ 
+    const enriched = orders.map((o) => ({
+      ...o,
+      orderNumber:    "LYR" + o._id.toString().slice(-8).toUpperCase(),
+      userName:   o.user?.fullName || o.address?.fullName || "Unknown",
+      userEmail:  o.user?.email || "",
+      userPhone:  o.user?.mobileNumber || o.address?.phone || "",
+      userId:     o.user?._id || null,
+      // Safe item count (never render the array directly in JSX)
+      itemCount:      Array.isArray(o.items) ? o.items.length : 0,
+    }));
+ 
+    res.json(enriched);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };

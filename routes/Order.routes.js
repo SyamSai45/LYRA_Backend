@@ -4,15 +4,16 @@ import {
   placeOrder,
   getMyOrders,
   getOrderById,
-  cancelOrder,
+  cancelOrder
 } from "../controllers/Order.controller.js";
 
 const router = express.Router();
 router.use(protect);
 
-router.post("/",              placeOrder);    // POST  /api/orders         — place order
-router.get("/my",             getMyOrders);  // GET   /api/orders/my      — user's orders
-router.get("/:id",            getOrderById); // GET   /api/orders/:id     — single order
-router.patch("/:id/cancel",   cancelOrder);  // PATCH /api/orders/:id/cancel
+router.post("/", placeOrder);
+router.get("/my", getMyOrders);
+router.get("/:id", getOrderById);
+router.patch("/:id/cancel", cancelOrder);
+
 
 export default router;

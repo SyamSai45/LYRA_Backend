@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const orderSchema = new mongoose.Schema({
   orderId: String,
 
-  customer: {
+  user: {
     name: String,
     email: String,
     phone: String,
