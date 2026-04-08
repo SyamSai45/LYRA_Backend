@@ -13,7 +13,8 @@ import orderRoutes from "./routes/Order.routes.js";
 import couponRoutes from "./routes/Coupon.routes.js";
 import HeroslideRoutes from "./routes/Heroslide.routes.js";
 import CategoryRoutes from "./routes/Category.routes.js";
-
+import AnalyticsRoutes from "./routes/AnalyticsRoutes.js";
+import ContactFormRoutes from "./routes/ContactFormRoutes.js";
 
 dotenv.config();
 
@@ -41,9 +42,12 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/coupons", couponRoutes);
 app.use("/api/admin", HeroslideRoutes);
 
+
 app.use("/api/categories", CategoryRoutes);
 
 app.use("/api/admin/categories", CategoryRoutes);
+app.use("/api/admin/analytics",  AnalyticsRoutes);
+app.use("/api/admin/contact",  ContactFormRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "✦ Lyra API is running", status: "ok" });

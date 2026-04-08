@@ -18,6 +18,7 @@ const productSchema = new mongoose.Schema(
     // ── Pricing ─────────────────────────────────────────────────
     price:         { type: Number, required: true },
     originalPrice: { type: Number },
+    
 
     // ── Details ─────────────────────────────────────────────────
     description:   { type: String },
@@ -51,7 +52,7 @@ productSchema.pre("save", function (next) {
   if (!this.primaryCategory && this.category) {
     this.primaryCategory = this.category;
   }
-  next();
+
 });
 
 const Product = mongoose.models.Product || mongoose.model("Product", productSchema);
