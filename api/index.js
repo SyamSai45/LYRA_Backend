@@ -3,19 +3,19 @@ import mongoose from "mongoose";
 import cors from "cors";
 
 // routes
-import authRoutes from "./routes/authRoutes.js";
-import userRoutes from "./routes/userRoutes.js";
-import adminRoutes from "./routes/adminRoutes.js";
-import wishlistRoutes from "./routes/wishlistRoutes.js";
-import cartRoutes from "./routes/cartRoutes.js";
-import bannerRoutes from "./routes/bannerRoutes.js";
-import addressRoutes from "./routes/Address.routes.js";
-import orderRoutes from "./routes/Order.routes.js";
-import couponRoutes from "./routes/Coupon.routes.js";
-import HeroslideRoutes from "./routes/Heroslide.routes.js";
-import CategoryRoutes from "./routes/Category.routes.js";
-import AnalyticsRoutes from "./routes/AnalyticsRoutes.js";
-import ContactFormRoutes from "./routes/ContactFormRoutes.js";
+import { authRoutes } from "../routes/authRoutes.js";
+import userRoutes from "../routes/userRoutes.js";
+import adminRoutes from "../routes/adminRoutes.js";
+import wishlistRoutes from "../routes/wishlistRoutes.js";
+import cartRoutes from "../routes/cartRoutes.js";
+import bannerRoutes from "../routes/bannerRoutes.js";
+import addressRoutes from "../routes/Address.routes.js";
+import orderRoutes from "../routes/Order.routes.js";
+import couponRoutes from "../routes/Coupon.routes.js";
+import HeroslideRoutes from "../routes/Heroslide.routes.js";
+import CategoryRoutes from "../routes/Category.routes.js";
+import AnalyticsRoutes from "../routes/AnalyticsRoutes.js";
+import ContactFormRoutes from "../routes/ContactFormRoutes.js";
 
 const app = express();
 

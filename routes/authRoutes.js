@@ -21,4 +21,4 @@ router.post("/verify-reset-otp", verifyResetOtp);
 
 
 
-export default router;
+export function authRoutes() { return router; } export default router;
