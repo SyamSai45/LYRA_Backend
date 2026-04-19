@@ -4,29 +4,24 @@ import cors from "cors";
 
 const app = express();
 
-app.use(cors({
-  origin: "*",
-  credentials: true
-}));
-
+app.use(cors());
 app.use(express.json());
 
-// routes example
+// test route
 app.get("/", (req, res) => {
   res.json({ message: "API working ✅" });
 });
 
-// Mongo connection (cached)
+// DB connection
 let isConnected = false;
 
 async function connectDB() {
   if (isConnected) return;
-
   await mongoose.connect(process.env.MONGO_URI);
   isConnected = true;
 }
 
-// Vercel handler
+// ✅ Vercel handler
 export default async function handler(req, res) {
   await connectDB();
   return app(req, res);
