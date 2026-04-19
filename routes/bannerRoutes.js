@@ -9,6 +9,7 @@ import {
   toggleBanner
 } from "../controllers/bannerController.js";
 
+
 const router = express.Router();
 
 // PUBLIC
@@ -20,5 +21,6 @@ router.post("/", protect, createBanner);
 router.put("/:bannerId", protect, updateBanner);
 router.delete("/:bannerId", protect, deleteBanner);
 router.patch("/:id/toggle", protect, toggleBanner);
+
 
 export default router;

@@ -14,11 +14,13 @@ import {
   adminGetOrderById
 } from "../controllers/adminController.js";
 
+import { uploadProduct } from "../config/cloudinary.js";
+
 const router = express.Router();
 
 router.get("/products", getProducts);
-router.post("/products", saveProduct);
-router.put("/products/:id", saveProduct);
+router.post("/products", uploadProduct.array("images", 5), saveProduct);
+router.put("/products/:id", uploadProduct.array("images", 5), saveProduct);
 router.delete("/products/:id", deleteProduct);
 router.get("/orders", getOrders);
 router.put("/orders/:id", updateOrder);
@@ -29,5 +31,6 @@ router.patch("/orders/:id/payment", adminUpdatePaymentStatus);
 router.patch("/:id/status", adminUpdateOrderStatus);
 router.get("/users", getUsers);
 router.get("/dashboard", getDashboard);
+
 
 export default router;

@@ -220,9 +220,16 @@ export const saveProduct = async (req, res) => {
   try {
     const data = { ...req.body };
 
+    console.log("FILES:", req.files);
+    console.log("BODY:", req.body);
+
     data.sizes  = toArray(data.sizes);
     data.colors = toArray(data.colors);
-    data.images = data.image ? [data.image] : data.images || [];
+
+     // 🔥 CLOUDINARY IMAGES
+    if (req.files && req.files.length > 0) {
+      data.images = req.files.map(file => file.path);
+    }
 
     // Sync primaryCategory ↔ category
     if (!data.primaryCategory) data.primaryCategory = data.category;
