@@ -12,7 +12,7 @@ import {
     updateSlide,
     deleteSlide,
     toggleSlideActive
-} from "../../controllers/Heroslide.controller.js";
+} from "../controllers/Heroslide.controller.js";
 
 router.get("/hero-slides/active", getActiveSlides);
 router.post("/hero-slides/seed", seedSlides);

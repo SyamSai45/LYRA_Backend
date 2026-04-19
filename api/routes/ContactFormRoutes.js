@@ -6,9 +6,9 @@ import {
     updateContactFormStatus,
     deleteContactForm
 
- } from "../../controllers/ContactForm.Controller.js";
+ } from "../controllers/ContactForm.Controller.js";
 
-import { protect } from "../../middleware/auth.js";
+import { protect } from "../middleware/auth.js";
 
 
 const router = express.Router();

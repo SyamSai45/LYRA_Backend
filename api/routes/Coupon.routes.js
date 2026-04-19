@@ -1,6 +1,6 @@
 import express from "express";
-import { protect } from "../../middleware/auth.js";
-import { validateCoupon } from "../../controllers/Coupon.controller.js";
+import { protect } from "../middleware/auth.js";
+import { validateCoupon } from "../controllers/Coupon.controller.js";
 
 const router = express.Router();
 

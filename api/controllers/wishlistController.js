@@ -1,4 +1,4 @@
-import Wishlist from "../models/Wishlist.js";
+import Wishlist from "../api/models/Wishlist.js";
 
 // ── Helper ─────────────────────────────────────────────
 const getOrCreate = async (userId) => {

@@ -1,4 +1,4 @@
-import ContactForm from "../models/ContactForm.model.js";
+import ContactForm from "../api/models/ContactForm.model.js";
 
 // ── CREATE CONTACT (PUBLIC)
 export const createContactForm = async (req, res) => {

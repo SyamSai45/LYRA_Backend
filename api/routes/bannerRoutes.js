@@ -1,5 +1,5 @@
 import express from "express";
-import { protect, adminOnly } from "../../middleware/auth.js";
+import { protect, adminOnly } from "../middleware/auth.js";
 import {
   getBanners,
   getActiveBanners,
@@ -7,7 +7,7 @@ import {
   updateBanner,
   deleteBanner,
   toggleBanner
-} from "../../controllers/bannerController.js";
+} from "../controllers/bannerController.js";
 
 
 const router = express.Router();

@@ -1,4 +1,4 @@
-import User from "../models/User.js";
+import User from "../api/models/User.js";
 
 export const getProfile = async (req, res) => {
   try {
@@ -140,7 +140,7 @@ export const deleteAddress = async (req, res) => {
 export const getCartCount = async (req, res) => {
   try {
     // Lazy import to avoid circular deps
-    const { Cart } = await import("../models/models.js");
+    const { Cart } = await import("../api/models/models.js");
     const cart  = await Cart.findOne({ user: req.params.userId });
     const count = cart ? cart.items.reduce((s, i) => s + i.quantity, 0) : 0;
     res.status(200).json({ cartCount: count });

@@ -4,8 +4,8 @@ import {
     getRevenue,
     getCustomers,
     getProducts
-} from "../../controllers/AnalyticsController.js";
-import { protect } from "../../middleware/auth.js";
+} from "../controllers/AnalyticsController.js";
+import { protect } from "../middleware/auth.js";
 
 const router = express.Router();
 

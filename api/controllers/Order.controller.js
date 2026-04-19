@@ -1,7 +1,7 @@
-import Order   from "../models/Order.model.js";
-import Cart    from "../models/Cart.js";
-import Address from "../models/Address.model.js";
-import Product from "../models/product.js";
+import Order   from "../api/models/Order.model.js";
+import Cart    from "../api/models/Cart.js";
+import Address from "../api/models/Address.model.js";
+import Product from "../api/models/product.js";
 export const placeOrder = async (req, res) => {
   try {
     const {

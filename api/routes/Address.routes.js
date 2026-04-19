@@ -1,12 +1,12 @@
 import express from "express";
-import { protect } from "../../middleware/auth.js";
+import { protect } from "../middleware/auth.js";
 import {
   getAddresses,
   createAddress,
   updateAddress,
   deleteAddress,
   setDefaultAddress,
-} from "../../controllers/Address.controller.js";
+} from "../controllers/Address.controller.js";
 
 const router = express.Router();
 router.use(protect);

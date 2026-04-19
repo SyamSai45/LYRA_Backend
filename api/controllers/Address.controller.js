@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Address from "../models/Address.model.js";
+import Address from "../api/models/Address.model.js";
 
 // ── Helpers ───────────────────────────────────────────────────────────
 const sendValidationError = (err, res) => {

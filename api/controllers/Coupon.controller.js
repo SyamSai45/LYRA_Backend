@@ -1,4 +1,4 @@
-import Coupon from "../models/Coupon.model.js";
+import Coupon from "../api/models/Coupon.model.js";
 
 // ─────────────────────────────────────────────────────────────────────
 // POST /api/coupons/validate

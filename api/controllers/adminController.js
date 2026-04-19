@@ -207,9 +207,9 @@
 //   }
 // };
 
-import Product from "../models/product.js";
-import Order from "../models/Order.model.js";
-import User from "../models/User.js";
+import Product from "../api/models/product.js";
+import Order from "../api/models/Order.model.js";
+import User from "../api/models/User.js";
 
 // ── helper: parse comma-separated strings ───────────────────────
 const toArray = (v) =>

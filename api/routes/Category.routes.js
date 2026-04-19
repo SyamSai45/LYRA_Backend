@@ -13,7 +13,7 @@ import {
   deleteSubCategory,
   seedCategories,
   reorderCategories,
-} from "../../controllers/Category.controller.js";
+} from "../controllers/Category.controller.js";
 
 const router = express.Router();
 

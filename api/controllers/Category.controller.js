@@ -1,4 +1,4 @@
-import Category from "../models/Category.model.js";
+import Category from "../api/models/Category.model.js";
 
 // ═══════════════════════════════════════════════════════════════════
 // SEED DATA — mirrors the original hardcoded MEGA_MENU on the frontend

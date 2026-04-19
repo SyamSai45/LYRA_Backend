@@ -10,9 +10,9 @@ import {
   getCartCount,
   getAllUsers,
   deleteUser,
-} from "../../controllers/userController.js";
-import { protect, adminOnly } from "../../middleware/auth.js";
-import { uploadProfile } from "../../config/cloudinary.js";
+} from "../controllers/userController.js";
+import { protect, adminOnly } from "../middleware/auth.js";
+import { uploadProfile } from "../config/cloudinary.js";
 
 const router = express.Router();
 

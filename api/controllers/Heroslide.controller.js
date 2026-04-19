@@ -1,5 +1,5 @@
 // controllers/heroSlide.controller.js
-import HeroSlide from "../models/Heroslide.model.js";
+import HeroSlide from "../api/models/Heroslide.model.js";
 // ─── Seed data (mirrors the original Dashboard mock slides) ───────
 // POST /api/admin/hero-slides/seed   →  populates DB if empty
 const SEED_SLIDES = [

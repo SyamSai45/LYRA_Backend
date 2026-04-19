@@ -12,9 +12,9 @@ import {
   adminUpdateOrderStatus,
   adminGetAllOrders,
   adminGetOrderById
-} from "../../controllers/adminController.js";
+} from "../controllers/adminController.js";
 
-import { uploadProduct } from "../../config/cloudinary.js";
+import { uploadProduct } from "../config/cloudinary.js";
 
 const router = express.Router();
 

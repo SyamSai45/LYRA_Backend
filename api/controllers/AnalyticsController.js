@@ -1,6 +1,6 @@
-import Order from "../models/Order.model.js";
-import Product from "../models/product.js";
-import User from "../models/User.js";
+import Order from "../api/models/Order.model.js";
+import Product from "../api/models/product.js";
+import User from "../api/models/User.js";
 
 // Helper functions
 const daysAgo = (n) => {
